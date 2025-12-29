@@ -36,7 +36,7 @@ use neorv32.neorv32_package.all;
 entity neorv32_litex_core_complex is
   generic (
     CONFIG : natural; -- configuration select (0=minimal, 1=lite, 2=standard, 3=full)
-    DEBUG  : boolean  -- enable on-chip debugger, valid for all configurations
+    DEBUG  : natural  -- enable on-chip debugger, valid for all configurations
   );
   port (
     -- Global control --
@@ -118,7 +118,7 @@ begin
     BOOT_MODE_SELECT      => 1,
     BOOT_ADDR_CUSTOM      => x"00000000",
     -- On-Chip Debugger (OCD) --
-    OCD_EN                => DEBUG,                          -- implement on-chip debugger
+    OCD_EN                => DEBUG /= 0,                   -- implement on-chip debugger
     -- RISC-V CPU Extensions --
     RISCV_ISA_C           => configs_c.riscv_c(CONFIG),      -- implement compressed extension?
     RISCV_ISA_M           => configs_c.riscv_m(CONFIG),      -- implement mul/div extension?
